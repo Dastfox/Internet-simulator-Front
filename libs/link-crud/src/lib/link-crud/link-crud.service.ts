@@ -11,7 +11,7 @@ import { Link } from '../../../../../apps/links/Link';
 @Injectable({ providedIn: 'root' })
 export class LinkCrudService {
 
-  private linkUrl = 'http://localhost:8000/links';  // URL to web api
+  private linkUrl = 'http://localhost:8000/';  // URL to web api
 
   httpOptions = {
     
@@ -78,11 +78,11 @@ export class LinkCrudService {
   }
 
   /** Patch: update the Link on the server */
-  update_Link(Link: Link, id: number, image: string): Observable<any> {
-    return this.http.patch(`${this.linkUrl}/${id}`, Link, this.httpOptions).pipe(
-      catchError(this.handleError<any>('updateLink'))
-    );
-  }
+  // update_Link(Link: Link, id: number, image: string): Observable<any> {
+  //   return this.http.patch(`${this.linkUrl}/${id}`, Link, this.httpOptions).pipe(
+  //     catchError(this.handleError<any>('updateLink'))
+  //   );
+  // }
 
 
 

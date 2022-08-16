@@ -1,0 +1,79 @@
+<!-- <front-nx-nx-welcome></front-nx-nx-welcome> -->
+
+    <body>
+        <!-- <script type="text/javascript">
+        var Konamix=function(){function a(a,b,c){a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,function(b){return c.call(a,b)})}function b(a){var b="";for(var d=0;d<a.length;d++){var e=a[d].toUpperCase();typeof c[e]!="undefined"?b+=c[e]:b+=e.charCodeAt(0)}return b}var c={SPACE:32,ENTER:13,UP:38,DOWN:40,LEFT:37,RIGHT:39},d="38384040373937396665";return function(c){var e=function(){},f=function(){},g=c instanceof Array&&c.length>0?b(c):d,h="";(function(b){a(document,"keydown",function(a){h+=a.keyCode,console.log(h,g.indexOf(h)),h===g?(h="",b.isStarted?b.stop():b.start()):g.indexOf(h)===-1&&(h=a.keyCode+"")})})(this),this.isStarted=!1,this.onStart=function(a){return e=a,this},this.onStop=function(a){return f=a,this},this.start=function(){return e.call(this),this.isStarted=!0,this},this.stop=function(){return f.call(this),this.isStarted=!1,this}}}();
+        var k = new Konamix().onStart(function() {
+          window.location.href = 'https://www.linkedin.com/in/th%C3%A9o-renard-353106102/';})
+        </script>
+        <script type="text/javascript">
+        var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+            bg_colour = "#" + ("000000" + bg_colour).slice(-6);
+            document.bgColor = bg_colour;
+
+
+            
+
+            const invertColor = (col) => {
+                col = col.toLowerCase();
+                  const colors = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
+                  let inverseColor = '#'
+                  col.replace('#','').split('').forEach(i => {
+                    const index = colors.indexOf(i)
+                    inverseColor += colors.reverse()[index]
+                  })
+                  return inverseColor
+                }
+                
+            var colour = invertColor(bg_colour);
+
+            window.onload = function (){ 
+            document.getElementById("ks").style.color = bg_colour;
+            document.getElementById("lab").style.color = colour;
+            document.getElementById("lab1").style.color = colour;
+            document.getElementById("lab2").style.color = colour;
+            document.getElementById("lab3").style.color = colour;
+            document.getElementById("lab4").style.color = colour;
+            document.getElementById("lab6").style.color = colour;
+            document.getElementById("lab6").style.color = colour;
+            document.getElementById("lab7").style.color = colour;
+            document.getElementById("lab8").style.color = colour;
+            }
+        
+        </script> -->
+
+       
+       
+
+            
+    <header>
+            <h3 id= "lab"> Internet Simulator: </h3>
+            <h2 id= "lab1"> Nombre de trucs sur internet:</h2>
+            <h1 id= "lab2"></h1>
+
+            
+  <button 
+    class= 'about' 
+    onclick = 'window.open("about")' 
+    id="lab4">
+  </button>
+
+         
+    </header>
+<!-- CONTENT -->
+    <footer>
+        
+            <form>
+               
+              <label id = "lab6">  </label>
+              <button 
+              type="button" 
+              class = "button_other"
+              id = "lab7"></button>
+            </form>
+   
+    </footer>
+
+    <p  class= "aboute" ><a href= "" id = "ks">Qu'est ce que c'est?</a></p>
+
+

@@ -2,10 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "pages": "libs/pages",
-    "state": "libs/state",
-    "todos": "apps/todos",
-    "todos-e2e": "apps/todos-e2e",
-    "ui": "libs/ui"
+    "Links": "apps/Links",
+    "Links-e2e": "apps/Links-e2e",
+    "links": "libs/links"
   }
 }

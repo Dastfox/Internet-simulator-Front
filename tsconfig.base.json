@@ -15,9 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@front-nx/pages": ["libs/pages/src/index.ts"],
-      "@front-nx/state": ["libs/state/src/index.ts"],
-      "@front-nx/ui": ["libs/ui/src/index.ts"]
+      "@front-nx/links": ["libs/links/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

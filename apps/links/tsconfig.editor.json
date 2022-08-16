@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "../../libs/link-crud/src/lib/link-crud/Links.ts"],
+  "include": ["**/*.ts", "Links.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }

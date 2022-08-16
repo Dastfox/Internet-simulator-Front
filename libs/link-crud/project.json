@@ -1,20 +1,23 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/links/src",
+  "sourceRoot": "libs/link-crud/src",
   "prefix": "front-nx",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/links"],
+      "outputs": ["coverage/libs/link-crud"],
       "options": {
-        "jestConfig": "libs/links/jest.config.ts",
+        "jestConfig": "libs/link-crud/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/links/**/*.ts", "libs/links/**/*.html"]
+        "lintFilePatterns": [
+          "libs/link-crud/**/*.ts",
+          "libs/link-crud/**/*.html"
+        ]
       }
     }
   },

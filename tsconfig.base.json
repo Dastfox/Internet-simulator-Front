@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@front-nx/links": ["libs/links/src/index.ts"]
+      "@front-nx/link-crud": ["libs/link-crud/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

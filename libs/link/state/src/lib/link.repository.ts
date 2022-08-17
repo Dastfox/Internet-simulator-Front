@@ -9,11 +9,12 @@ const storeName = 'links';
 
 
 export interface Link {
-  id: number;
+  id : string;
   url : string;
-}
+} 
 
 @Injectable({  providedIn: 'root'})
+
 
 export class LinkRepository { 
 	link : Observable<Link[]>;
@@ -27,10 +28,14 @@ export class LinkRepository {
 			key: storeName,
 			storage: localStorageStrategy,
 		});
+    // get > fastapi
 }
  
 private createStore(): typeof store {
-  const store = createStore({ name: 'linkStore' }, withEntities<Link>());
+  const store = 
+  createStore({ name: 'linkStore' },
+  withEntities<Link>());
+  
   return store;
 }
 
@@ -38,7 +43,7 @@ addLink(link: Link) {
   this.store.update(addEntities(link));
 }
 
-getLink(){
+getLinks(){
   return this.store.pipe(selectAllEntities())
 }
 

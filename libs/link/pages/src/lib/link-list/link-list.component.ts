@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Link } from '@front-nx/link/state';
 import { LinkRepository } from '@front-nx/link/state';
 
+
+
 @Component({
   selector: 'front-nx-link-list',
   templateUrl: './link-list.component.html',
@@ -15,9 +17,9 @@ export class LinkListComponent implements OnInit {
   ngOnInit(): void {
     this.getLinks();
   }
+  
   getLinks(): void {
-    this.linkRepository.getLink()
-      .subscribe(links => this.links = links);
+    this.linkRepository.getLinks()
+    .subscribe((links) => this.links = links);
   }
-
 }

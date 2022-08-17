@@ -7,12 +7,13 @@ required size= "45"
 maxlength =  2300
 size = 100
 placeholder="http://..."
-name = URL>
+name = URL
+#linkUrl>
 
 </div>
 
 <div>
-<button class="button_new">
+<button class="button_new" (click)="addLink(linkUrl.value); linkUrl.value=''">
 </button>
 </div>
 

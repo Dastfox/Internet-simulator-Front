@@ -1,12 +1,12 @@
-<div>list Works</div>
 
-<ul>
+
+<ul id = "lab3" class = "links">
     <li *ngFor ="let link of links">
-        <button type="button">
-          <span class="badge">{{link.id}}</span>
-          <span class="name">{{link.url}}</span>
-        </button>
-      </li>
+      <a> 
+        <span class="Badge">{{link.id}}</span>{{link.url}}
+      </a>
+    
+    </li>
 </ul>
 
 <footer>

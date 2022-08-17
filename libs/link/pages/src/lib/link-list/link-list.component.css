@@ -1,13 +1,4 @@
-.button_new
- {
-	background:url(./assets/button.png) no-repeat;
-	background-size: contain;
-	background-repeat: no-repeat;
-	cursor:pointer;
-	width: 15em;
-	height: 15em;
-	border: none;
-}
+
 
 .button_other 
 {

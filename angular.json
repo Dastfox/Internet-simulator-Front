@@ -5,6 +5,9 @@
     "Links": "apps/Links",
     "Links-e2e": "apps/Links-e2e",
     "link-crud": "libs/link-crud",
-    "link-list": "libs/link-list"
+    "link-list": "libs/link-list",
+    "link-pages": "libs/link/pages",
+    "link-state": "libs/link/state",
+    "link-ui": "libs/link/ui"
   }
 }

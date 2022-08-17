@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@front-nx/link-crud": ["libs/link-crud/src/index.ts"],
-      "@front-nx/link-list": ["libs/link-list/src/index.ts"]
+      "@front-nx/link-list": ["libs/link-list/src/index.ts"],
+      "@front-nx/link/pages": ["libs/link/pages/src/index.ts"],
+      "@front-nx/link/state": ["libs/link/state/src/index.ts"],
+      "@front-nx/link/ui": ["libs/link/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Link } from '../../../../../apps/links/Link';
+import { Link } from '@front-nx/link/state';
 
 
 
@@ -105,6 +105,5 @@ export class LinkCrudService {
     };
   }
 
-  /** Log a LinkService message with the MessageService */
 
   }

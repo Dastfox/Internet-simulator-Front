@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { localStorageStrategy, persistState } from '@ngneat/elf-persist-state';
+import { createStore, withProps, select } from '@ngneat/elf';
+
+import {	selectAllEntities, withEntities, addEntities } from '@ngneat/elf-entities';
+import { Observable } from 'rxjs';
+const storeName = 'links';
+
 
 
 export interface Link {
@@ -11,39 +13,33 @@ export interface Link {
   url : string;
 }
 
-@NgModule({
-  imports: [CommonModule],
-})
+@Injectable({  providedIn: 'root'})
 
-@Injectable({ providedIn: 'root' })
-export class LinkRepository {
+export class LinkRepository { 
+	link : Observable<Link[]>;
+	private store;
+  private _persist;
 
-  private linkUrl = 'http://localhost:8000/';  // URL to web api
+	constructor() {
+		this.store = this.createStore();
+		this.link = this.store.pipe(selectAllEntities());
+    this._persist = persistState(this.store, {
+			key: storeName,
+			storage: localStorageStrategy,
+		});
+}
+ 
+private createStore(): typeof store {
+  const store = createStore({ name: 'linkStore' }, withEntities<Link>());
+  return store;
+}
 
-  httpOptions = {
-    
-    headers:
-    
-    new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Method': "*",
+addLink(link: Link) {
+  this.store.update(addEntities(link));
+}
 
-   })
+getLink(){
+  return this.store.pipe(selectAllEntities())
+}
 
-  };
-  constructor(private http: HttpClient ){
-  }
-
-    private handleError<T>(operation = 'operation', result?: T) {
-      return (error: any): Observable<T> => {
-  
-        // TODO: send the error to remote logging infrastructure
-        console.error(error); // log to console instead
-  
-        // Let the app keep running by returning an empty result.
-        return of(result as T);
-      };
-    }    
-
-    }
+}

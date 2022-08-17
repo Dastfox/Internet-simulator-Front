@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Link } from '@front-nx/link/state'
+import { Link } from '@front-nx/link/state';
+import { LinkRepository } from '@front-nx/link/state';
 
 @Component({
   selector: 'front-nx-link-list',
@@ -8,7 +9,15 @@ import { Link } from '@front-nx/link/state'
 })
 export class LinkListComponent implements OnInit {
   links : Link[] = [];
-  constructor() {}
 
-  ngOnInit(): void {}
+  constructor(private linkRepository: LinkRepository) {}
+
+  ngOnInit(): void {
+    this.getLinks();
+  }
+  getLinks(): void {
+    this.linkRepository.getLink()
+      .subscribe(links => this.links = links);
+  }
+
 }

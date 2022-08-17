@@ -4,6 +4,7 @@
   "projects": {
     "Links": "apps/Links",
     "Links-e2e": "apps/Links-e2e",
-    "link-crud": "libs/link-crud"
+    "link-crud": "libs/link-crud",
+    "link-list": "libs/link-list"
   }
 }

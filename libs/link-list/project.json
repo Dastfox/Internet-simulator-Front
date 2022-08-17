@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/link-list/src",
+  "prefix": "front-nx",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/link-list"],
+      "options": {
+        "jestConfig": "libs/link-list/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/link-list/**/*.ts",
+          "libs/link-list/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

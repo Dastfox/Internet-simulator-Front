@@ -16,7 +16,7 @@ export class LinkCrudComponent implements OnInit {
   this.getlink();
   }
   
-  getlink(): void {
+getlink(): void {
     this.LinkCrudService.getlink()
         .subscribe(link => this.links = link);
   }

@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LinkCreateComponent } from './link-create/link-create.component';
-import { LinkListComponent } from './link-list/link-list.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { LinkDetailComponent } from './link-detail/link-detail.component';
+import {LinkUiModule}from '@front-nx/link/ui';
+// import { LinkCreateComponent } from 'libs/link/ui/src/lib/link-create/link-create.component';
+import { HomepageComponent } from './homepage/homepage.component';
+
+
 
 const routes: Routes = [
-  { path: 'links', component: LinkCreateComponent },
-  { path: '', redirectTo: '/links', pathMatch: 'full' },
-  { path: 'list', component: LinkListComponent },
+  { path: 'home', component: HomepageComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: 'list', component: LinkListComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), BrowserModule],
-  declarations: [LinkCreateComponent, LinkListComponent, LinkDetailComponent],
+  imports: [RouterModule.forRoot(routes), BrowserModule, LinkUiModule],
+  declarations: [HomepageComponent],
   exports: [RouterModule],
 })
 export class LinkPagesModule {}

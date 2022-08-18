@@ -26,24 +26,19 @@ export interface Link {
 
 
 export class LinkRepository { 
-  ngOnInit(linkStateService: LinkStateService) {
-    linkStateService.getLinksFS()
-    .subscribe(links => this.links = links);
-  }
+
 
 
   links : Link[] = [];
 	link : Observable<Link[]>;
 	private store;
-  private storeup;
   private persist;
 
 	constructor(private linkStateService : LinkStateService,) {
-    linkStateService.getLinksFS()
-    .subscribe(links => this.links = links);
 		this.store = this.createStore();
-    this.storeup = this.store.update(setEntities(this.links));
-    this.link = this.store.pipe(selectAllEntities());
+		this.link = this.store.pipe(selectAllEntities());
+    this.fetchLinksFromServer();
+    // this.link.subscribe(links => this.links = links);
     this.persist = persistState(this.store, {
 			key: storeName,
 			storage: localStorageStrategy,
@@ -63,7 +58,19 @@ addLink(link: Link) {
   }
 
 getLinks(){
-    return this.store.pipe(selectAllEntities())
+  return this.store.pipe(selectAllEntities())
   }
+
+deleteLink(link: Link) {
+  // delete locally
+  // delete onserver
+}
+
+fetchLinksFromServer(){
+  this.linkStateService.getLinksFS()
+  .subscribe(links => this.links = links);
+  this.store.update(setEntities(this.links))
+}
+
 
 }

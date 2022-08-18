@@ -20,11 +20,15 @@ export class LinkListComponent implements OnInit {
     this.getLinks();
   }
   
-  getLinks(): void {
-    // this.linkStateService.getLinksFS()
-    // .subscribe(links => this.links = links);
+  getLinks() {
+    
     this.linkRepository.getLinks()
-    .subscribe(links => this.links = links);
+    .subscribe(links => {this.links = links
+    console.log(this.links)  });
+    
   }
-  
+
+  deleteLink(link: Link): void {
+    this.linkRepository.deleteLink(link)
+  }
 }

@@ -1,11 +1,15 @@
-
-
 <ul id = "lab3" class = "links">
     <li *ngFor ="let link of links">
       <a> 
         <span class="Badge" >{{link.url}}</span>
       </a>
-    
+      <button 
+      type="button" 
+      class="delete" 
+      title="delete link"
+      (click)="deleteLink(link)">
+      x
+    </button>
     </li>
 </ul>
 

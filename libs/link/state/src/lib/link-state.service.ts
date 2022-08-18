@@ -39,4 +39,11 @@ export class LinkStateService {
     addLinksFS(link: Link): Observable<Link> {
       return this.http.post<Link>(this.linkUrl, link, this.httpOptions);
     }
+
+    deleteLinkFS(Guid: string): Observable<Link> {
+      return this.http.delete<Link>(Guid, this.httpOptions);  
+    };
+
   }
+
+  

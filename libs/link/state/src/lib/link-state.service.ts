@@ -29,6 +29,14 @@ export class LinkStateService {
   constructor(
     private http: HttpClient
     ){}
-    
 
+
+    getLinksFS(): Observable<Link[]> {
+      return this.http.get<Link[]>(this.linkUrl)
+        ;
+    }
+
+    addLinksFS(link: Link): Observable<Link> {
+      return this.http.post<Link>(this.linkUrl, link, this.httpOptions);
+    }
   }

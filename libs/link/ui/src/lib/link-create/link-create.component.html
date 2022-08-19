@@ -1,30 +1,12 @@
 <div>
-    <label id = "lab3" for="NewUrl">Entrez un lien puis appuyez sur le bouton pour l'ajouter à l'internet</label><br><br>
-    <input 
-type="text"
-id="new URL"
-required size= "45" 
-maxlength =  2300
-size = 100
-placeholder="http://..."
-name = URL
-#linkUrl>
+    <label id="lab3" for="NewUrl">Entrez un lien puis appuyez sur le bouton pour l'ajouter à l'internet</label><br><br>
+    <input type="text" id="new URL" required size="45" maxlength=2300 size=100 placeholder="http://..." name=URL
+        #linkUrl>
 
 </div>
 
 <div>
-<button class="button_new" (click)="addLink(linkUrl.value); linkUrl.value=''">
-</button>
+    <button class="button_new" (click)="addLink(linkUrl.value); linkUrl.value=''">
+    </button>
 </div>
 
-<footer>
-    
-
-<label id = "lab6">  </label>
-<button 
-type="button" 
-class = "button_other"
-id = "lab7" routerLink="/list"></button>
-
-
-</footer>

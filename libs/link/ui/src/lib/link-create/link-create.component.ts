@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Guid } from "guid-typescript";
+import { Guid } from 'guid-typescript';
 
 import { LinkRepository } from '@front-nx/link/state';
 import { Link } from '@front-nx/link/state';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
-
-
 
 @Component({
   selector: 'front-nx-link-create',
@@ -13,30 +11,30 @@ import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
   styleUrls: ['./link-create.component.css'],
 })
 export class LinkCreateComponent {
-  links : Link[] = [];
+  links: Link[] = [];
   public rng: Guid;
   public rnd: string;
-  constructor(private linkRepository: LinkRepository, private linkStateService: LinkStateService ) {
+  constructor(
+    private linkRepository: LinkRepository,
+    private linkStateService: LinkStateService
+  ) {
     this.rng = Guid.create();
     this.rnd = this.rng.toString();
   }
 
   ngOnInit(): void {}
-  
+
   addLink(url: string): void {
     url = url.trim();
-    if (!url) { return; }
+    if (!url) {
+      return;
+    }
     const newLink: Link = {
-      url , 
-      Guid : this.rnd
-    }
-    this.linkRepository.addLink(newLink); 
-    this.linkStateService.addLinksFS(newLink)
-    .subscribe(link => {
-      this.links.push(link);
-    });
-    }
-      
+      url,
+      Guid: this.rnd,
     };
+    this.linkRepository.addLink(newLink);
+  }
 
 
+}

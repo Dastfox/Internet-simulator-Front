@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Link } from '@front-nx/link/state';
 import { LinkRepository } from '@front-nx/link/state';
-import { addEntities } from '@ngneat/elf-entities';
+import { getEntitiesCount } from '@ngneat/elf-entities';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
 
 
@@ -28,7 +28,9 @@ export class LinkListComponent implements OnInit {
     
   }
 
-  deleteLink(link: Link): void {
-    this.linkRepository.deleteLink(link)
+  deleteLink(Guid: string): void {
+    this.linkRepository.deleteLink(Guid);
   }
 }
+
+

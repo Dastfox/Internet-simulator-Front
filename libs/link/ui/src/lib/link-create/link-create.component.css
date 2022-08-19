@@ -1,25 +1,10 @@
-.button_new
- {
-	background:url(./assets/button.png) no-repeat;
+.button_new {
+	background: url(./assets/button.png) no-repeat;
 	background-size: contain;
 	background-repeat: no-repeat;
-	cursor:pointer;
+	cursor: pointer;
 	width: 15em;
 	height: 15em;
 	border: none;
 }
 
-.button_other 
-{
-	transition: 1s;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-	cursor: pointer;
-	align-self: center;
-	border-left : 1em solid ;
-	border-bottom : 1em solid;
-	border-right : 1em solid ;
-	border-top : 1em solid;
-	background:  transparent;
-}

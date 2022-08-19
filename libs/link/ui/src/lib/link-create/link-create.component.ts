@@ -15,8 +15,8 @@ export class LinkCreateComponent {
   public rng: Guid;
   public rnd: string;
   constructor(
-    private linkRepository: LinkRepository,
-    private linkStateService: LinkStateService
+    public linkRepository: LinkRepository,
+    public linkStateService: LinkStateService
   ) {
     this.rng = Guid.create();
     this.rnd = this.rng.toString();
@@ -32,6 +32,7 @@ export class LinkCreateComponent {
     const newLink: Link = {
       url,
       guid: this.rnd,
+      id: 0,
     };
     this.linkRepository.addLink(newLink);
   }

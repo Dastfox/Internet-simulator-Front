@@ -9,7 +9,9 @@ import {
   deleteEntities,
   getEntitiesCount,
   getEntity,
-  selectEntity
+  selectEntity,
+  deleteAllEntities,
+  updateAllEntities,
 } from '@ngneat/elf-entities';
 import { Observable } from 'rxjs';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
@@ -20,11 +22,12 @@ import {
   createRequestDataSource,
 } from '@ngneat/elf-requests';
 
-const storeName = 'linkStore';
+const storeName = 'links';
 
 export interface Link {
   url: string;
   guid: string;
+  id: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -34,7 +37,7 @@ export class LinkRepository {
   private store;
   private persist;
 
-  
+
   constructor(private linkStateService: LinkStateService) {
     this.store = this.createStore();
     this.link = this.store.pipe(selectAllEntities());
@@ -43,6 +46,7 @@ export class LinkRepository {
       key: storeName,
       storage: localStorageStrategy,
     });
+
   }
 
   private createStore(): typeof store {
@@ -57,6 +61,7 @@ export class LinkRepository {
     this.store.update(addEntities(newLink));
     this.linkStateService.addLinksFS(newLink).subscribe((link) => {
       this.links.push(link);
+      console.log(this.link);
     });
   }
 
@@ -64,24 +69,26 @@ export class LinkRepository {
     return this.store.pipe(selectAllEntities());
   }
 
-  getLink(id : string) {
-    return this.store.pipe(selectEntity(id));
+  getLink(guid: string) {
+    return this.store.pipe(selectEntity(guid));
   }
 
-  deleteLink(id: string) {
-    // delete locally
-    this.store.update(deleteEntities(id));
-    // delete onserver
-    this.linkStateService.deleteLinkFS(id).subscribe((link) => {
-      this.links.push(link);
-    });
-  }
+  // deleteLink(LinkToDelete: Link) {
+  //   // delete locally
+  //   this.store.update(deleteEntities(LinkToDelete));
+  //   // delete onserver
+  //   this.linkStateService.deleteLinkFS(LinkToDelete).subscribe((link) => {
+  //     this.links.push(link);
+  //   });
+  // }
 
   fetchLinksFromServer() {
-    this.linkStateService
-      .getLinksFS()
-      .subscribe((links) => (this.links = links));
-    this.store.update(setEntities(this.links));
+    this.linkStateService.getLinksFS().subscribe((links) => {
+      this.links = links;
+      this.store.update(setEntities(this.links));
+    });
+    
+    
   }
 
   getLinksCount() {

@@ -4,10 +4,21 @@ import { LinkListComponent } from './link-list/link-list.component';
 import { LinkCreateComponent } from './link-create/link-create.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CounterComponent } from './counter/counter.component';
+import { LinkDetailComponent } from './link-detail/link-detail.component';
 
 @NgModule({
   imports: [BrowserModule],
-  declarations: [LinkListComponent, LinkCreateComponent, CounterComponent],
-  exports: [LinkCreateComponent, LinkListComponent, CounterComponent],
+  declarations: [
+    LinkListComponent,
+    LinkCreateComponent,
+    CounterComponent,
+    LinkDetailComponent,
+  ],
+  exports: [
+    LinkCreateComponent,
+    LinkListComponent,
+    CounterComponent,
+    LinkDetailComponent,
+  ],
 })
 export class LinkUiModule {}

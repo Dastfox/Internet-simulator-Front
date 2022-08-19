@@ -9,6 +9,7 @@ import {
   deleteEntities,
   getEntitiesCount,
   getEntity,
+  selectEntity
 } from '@ngneat/elf-entities';
 import { Observable } from 'rxjs';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
@@ -19,11 +20,11 @@ import {
   createRequestDataSource,
 } from '@ngneat/elf-requests';
 
-const storeName = 'links';
+const storeName = 'linkStore';
 
 export interface Link {
-  Guid: string;
   url: string;
+  guid: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -33,11 +34,11 @@ export class LinkRepository {
   private store;
   private persist;
 
+  
   constructor(private linkStateService: LinkStateService) {
     this.store = this.createStore();
     this.link = this.store.pipe(selectAllEntities());
     this.fetchLinksFromServer();
-    // this.link.subscribe(links => this.links = links);
     this.persist = persistState(this.store, {
       key: storeName,
       storage: localStorageStrategy,
@@ -47,7 +48,7 @@ export class LinkRepository {
   private createStore(): typeof store {
     const store = createStore(
       { name: 'linkStore' },
-      withEntities<Link, 'Guid'>({ idKey: 'Guid' })
+      withEntities<Link, 'guid'>({ idKey: 'guid' })
     );
     return store;
   }
@@ -63,11 +64,17 @@ export class LinkRepository {
     return this.store.pipe(selectAllEntities());
   }
 
-  deleteLink(Guid: string) {
+  getLink(id : string) {
+    return this.store.pipe(selectEntity(id));
+  }
+
+  deleteLink(id: string) {
     // delete locally
-    this.store.update(deleteEntities(Guid));
+    this.store.update(deleteEntities(id));
     // delete onserver
-    this.linkStateService.deleteLinkFS(Guid);
+    this.linkStateService.deleteLinkFS(id).subscribe((link) => {
+      this.links.push(link);
+    });
   }
 
   fetchLinksFromServer() {
@@ -77,10 +84,7 @@ export class LinkRepository {
     this.store.update(setEntities(this.links));
   }
 
-  getLinksCount(){
-    return this.store.query(getEntitiesCount())
-  }  
-  
-
-
+  getLinksCount() {
+    return this.store.query(getEntitiesCount());
+  }
 }

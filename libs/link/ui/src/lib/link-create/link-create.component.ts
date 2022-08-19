@@ -31,10 +31,8 @@ export class LinkCreateComponent {
     }
     const newLink: Link = {
       url,
-      Guid: this.rnd,
+      guid: this.rnd,
     };
     this.linkRepository.addLink(newLink);
   }
-
-
 }

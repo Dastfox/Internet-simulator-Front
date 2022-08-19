@@ -20,6 +20,7 @@ export class LinkStateService {
 
   constructor(private http: HttpClient) {}
 
+
   getLinksFS(): Observable<Link[]> {
     return this.http.get<Link[]>(this.linkUrl);
   }
@@ -28,7 +29,7 @@ export class LinkStateService {
     return this.http.post<Link>(this.linkUrl, link, this.httpOptions);
   }
 
-  deleteLinkFS(Guid: string): Observable<Link> {
-    return this.http.delete<Link>(Guid, this.httpOptions);
+  deleteLinkFS(guid: string): Observable<Link> {
+    return this.http.delete<Link>(guid, this.httpOptions);
   }
 }

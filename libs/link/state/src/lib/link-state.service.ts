@@ -48,7 +48,7 @@ export class LinkStateService {
   /**
    * 
    * @param id 
-   * @returns a delete method in the back
+   * @returns a delete method in the back 
    */
   deleteLinkFromServer(id: string): Observable<Link> {
     const url = `${this._linkUrl}details/${id}`;

@@ -5,9 +5,10 @@ import { LinkCreateComponent } from './link-create/link-create.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CounterComponent } from './counter/counter.component';
 import { LinkDetailComponent } from './link-detail/link-detail.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [BrowserModule],
+  imports: [BrowserModule, RouterModule ],
   declarations: [
     LinkListComponent,
     LinkCreateComponent,

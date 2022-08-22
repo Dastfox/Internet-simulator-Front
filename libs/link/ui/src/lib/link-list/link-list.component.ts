@@ -27,14 +27,9 @@ export class LinkListComponent implements OnInit {
     });
   }
 
-  // deleteLink(id: number) {
-  //   const LinkToDelete: Link = {
-  //     url: "",
-  //     guid: "",
-  //     id,
-  //   };
-  //   this.linkRepository.deleteLink(LinkToDelete)
-  //     console.log(LinkToDelete);
-  //   };
+  deleteLink(id: string) {
+    this.linkRepository.deleteLink(id)
+      console.log(id);
+    };
   }
 

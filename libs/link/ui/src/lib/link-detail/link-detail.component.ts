@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Link } from '@front-nx/link/state';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
 import { ActivatedRoute } from '@angular/router';
+import { elementAt, observable } from 'rxjs';
+import { LinkRepository } from '@front-nx/link/state';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'front-nx-link-detail',
@@ -9,21 +12,34 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./link-detail.component.css'],
 })
 export class LinkDetailComponent implements OnInit {
-  link: Link []= [];
+  link: Link | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private linkStateService: LinkStateService,
+    private linkRepository: LinkRepository,
     private location: Location
   ) {}
 
   ngOnInit(): void {
-  this.getHero();}
+    this.getLink();
+  }
 
-  getHero():void {
-    const guid = String(this.route.snapshot.paramMap.get('guid'));
-    this.linkStateService.getLinkFS(guid)
-    .subscribe(link => {this.link = link
-      console.log(this.link)  });
+  getLink(): void {
+    const id = String(this.route.snapshot.paramMap.get('id'));
+    this.linkRepository.getLink(id).subscribe((link) => {
+      this.link = link;
+      console.log(this.link);
+    });
+  }
+  save(): void {
+    if (this.link) {
+      const id = String(this.route.snapshot.paramMap.get('id'));
+      this.linkRepository.updateLink(this.link, id);
+      this.goBack();
+    }
+  }
+  goBack(): void {
+    this.location.back();
   }
 }

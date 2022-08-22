@@ -12,6 +12,8 @@ import {
   selectEntity,
   deleteAllEntities,
   updateAllEntities,
+  getEntitiesIds,
+  updateEntities,
 } from '@ngneat/elf-entities';
 import { Observable } from 'rxjs';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
@@ -26,8 +28,7 @@ const storeName = 'links';
 
 export interface Link {
   url: string;
-  guid: string;
-  id: number;
+  id: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -37,7 +38,6 @@ export class LinkRepository {
   private store;
   private persist;
 
-
   constructor(private linkStateService: LinkStateService) {
     this.store = this.createStore();
     this.link = this.store.pipe(selectAllEntities());
@@ -46,20 +46,19 @@ export class LinkRepository {
       key: storeName,
       storage: localStorageStrategy,
     });
-
   }
 
   private createStore(): typeof store {
     const store = createStore(
       { name: 'linkStore' },
-      withEntities<Link, 'guid'>({ idKey: 'guid' })
+      withEntities<Link>({ idKey: 'id' })
     );
     return store;
   }
 
   addLink(newLink: Link) {
     this.store.update(addEntities(newLink));
-    this.linkStateService.addLinksFS(newLink).subscribe((link) => {
+    this.linkStateService.addLinksFromServer(newLink).subscribe((link) => {
       this.links.push(link);
       console.log(this.link);
     });
@@ -69,29 +68,39 @@ export class LinkRepository {
     return this.store.pipe(selectAllEntities());
   }
 
-  getLink(guid: string) {
-    return this.store.pipe(selectEntity(guid));
+  getLink(id: string) {
+    return this.store.pipe(selectEntity(id));
   }
 
-  // deleteLink(LinkToDelete: Link) {
-  //   // delete locally
-  //   this.store.update(deleteEntities(LinkToDelete));
-  //   // delete onserver
-  //   this.linkStateService.deleteLinkFS(LinkToDelete).subscribe((link) => {
-  //     this.links.push(link);
-  //   });
-  // }
+  deleteLink(id: string) {
+    // delete locally
+    this.store.update(deleteEntities(id));
+    // delete onserver
+    this.linkStateService.deleteLinkFromServer(id).subscribe((link) => {
+      this.links.push(link);
+    });
+  }
 
   fetchLinksFromServer() {
-    this.linkStateService.getLinksFS().subscribe((links) => {
+    this.linkStateService.getDataFromServer<Link>().subscribe((links) => {
       this.links = links;
       this.store.update(setEntities(this.links));
     });
-    
-    
   }
 
   getLinksCount() {
     return this.store.query(getEntitiesCount());
+  }
+
+  updateLink(link: Link, id: string) {
+    // update onserver
+    this.linkStateService.updateLinkOnServer(link, id).subscribe((link) => {
+      this.links.push(link);
+      console.log(link);
+    // update locally
+    }
+    )
+    this.store.update(updateEntities(id, {url :link.url}));
+    console.log(link.url);
   }
 }

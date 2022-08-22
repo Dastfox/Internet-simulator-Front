@@ -1,11 +1,12 @@
 <div *ngIf="link">
-    <h2> Details</h2>
-    <br>
-    <div>
-      <label for="link-url">url: </label>
-    </div>
-    <button type="button" routerLink ="/list">go back</button>
-    <!-- <button type="button" (click)="save()">save</button> -->
-  
-  
+  <h2> Modifier </h2>
+  <br>
+  <div>
+    <label for="link-url">URL: <br>{{link.url}} </label><br>
+    <input  placeholder="Modifier URL" name = URL />
   </div>
+  <button type="button" routerLink="/list">go back</button>
+  <button type="button" (click)="save()">save</button>
+
+
+</div>

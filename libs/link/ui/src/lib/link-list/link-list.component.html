@@ -1,16 +1,10 @@
-<ul id = "lab3" class = "links">
-    <li *ngFor ="let link of links">
-      <a> 
-        <span class="Badge" >{{link.url}}</span>
-      </a>
-      <!-- <button 
-      type="button" 
-      class="delete" 
-      title="delete link"
-      (click)=
-      "deleteLink(link.id)">
+<ul id="lab3" class="links">
+  <li *ngFor="let link of links" >
+    <a routerLink="/details/{{link.id}}">
+      <span class="Badge">{{link.url}}</span>
+    </a>
+    <button type="button" class="delete" title="delete link" (click)="deleteLink(link.id)">
       x
-    </button> -->
-    </li>
+    </button>
+  </li>
 </ul>
-

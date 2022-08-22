@@ -9,7 +9,7 @@ import { Link } from '@front-nx/link/state';
   styleUrls: ['./counter.component.css'],
 })
 
-export class CounterComponent implements OnInit {
+export class CounterComponent  {
   links: Link[] = [];
   public counter;
 
@@ -19,9 +19,6 @@ export class CounterComponent implements OnInit {
     this.counter = this.getLinksCount();
     }
 
-  ngOnInit(): void {
-    this.getLinksCount();
-  }
   
   getLinksCount() { 
     return this.linkRepository.getLinksCount()

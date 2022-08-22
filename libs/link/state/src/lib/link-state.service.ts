@@ -20,21 +20,24 @@ export class LinkStateService {
 
   constructor(private http: HttpClient) {}
 
-  getLinkFS(guid: string): Observable<Link[]> {
-    const url = `${this.linkUrl}/${guid}`;
+  getLinkFromServer(id: string): Observable<Link[]> {
+    const url = `${this.linkUrl}details/${id}`;
     return this.http.get<Link[]>(url);
   }
 
-
-  getLinksFS(): Observable<Link[]> {
-    return this.http.get<Link[]>(this.linkUrl);
+  getDataFromServer<T>(): Observable<T[]> {
+    return this.http.get<T[]>(this.linkUrl);
   }
 
-  addLinksFS(link: Link): Observable<Link> {
+  addLinksFromServer(link: Link): Observable<Link> {
     return this.http.post<Link>(this.linkUrl, link, this.httpOptions);
   }
 
-  // deleteLinkFS(LinkToDelete: Link): Observable<Link> {
-  //   return this.http.delete<Link>(LinkToDelete, this.httpOptions);
-  // }
+  deleteLinkFromServer(id: string): Observable<Link> {
+    const url = `${this.linkUrl}details/${id}`;
+    return this.http.delete<Link>(url, this.httpOptions);
+  }
+  updateLinkOnServer(link: Link, id: string): Observable<any> {
+    return this.http.patch(`${this.linkUrl}details/${id}`, link, this.httpOptions);
+  }
 }

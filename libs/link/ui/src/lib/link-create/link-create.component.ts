@@ -3,7 +3,6 @@ import { Guid } from 'guid-typescript';
 
 import { LinkRepository } from '@front-nx/link/state';
 import { Link } from '@front-nx/link/state';
-import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
 
 @Component({
   selector: 'front-nx-link-create',
@@ -11,29 +10,37 @@ import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
   styleUrls: ['./link-create.component.css'],
 })
 export class LinkCreateComponent {
+  // collection of Link
   links: Link[] = [];
-  public rng: Guid;
-  public rnd: string;
+  
+  private _guidRandomID: Guid;
+  private _guidRandomIDString: string;
   constructor(
-    public linkRepository: LinkRepository,
-    public linkStateService: LinkStateService
+    private _linkRepository: LinkRepository,
   ) {
-    this.rng = Guid.create();
-    this.rnd = this.rng.toString();
+    // unique id 32 char
+    this._guidRandomID = Guid.create();
+    // transforms guid format to string format
+    this._guidRandomIDString = this._guidRandomID.toString();
   }
 
-  ngOnInit(): void {}
-
+/**
+ * 
+ * @param url string from html input
+ * @returns the repo method to add a link
+ */
   addLink(url: string): void {
     url = url.trim();
+    // if link doesn't exists security
     if (!url) {
       return;
     }
+    // declares an object formed by trimmed url and id generated in constructor
     const newLink: Link = {
       url,
-      id: this.rnd,
+      id: this._guidRandomIDString,
 
     };
-    this.linkRepository.addLink(newLink);
+    this._linkRepository.addLink(newLink);
   }
 }

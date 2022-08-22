@@ -8,22 +8,12 @@ import {
   setEntities,
   deleteEntities,
   getEntitiesCount,
-  getEntity,
   selectEntity,
-  deleteAllEntities,
-  updateAllEntities,
-  getEntitiesIds,
   updateEntities,
 } from '@ngneat/elf-entities';
 import { Observable } from 'rxjs';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
 import { Location } from '@angular/common';
-
-import {
-  withRequestsStatus,
-  withRequestsCache,
-  createRequestDataSource,
-} from '@ngneat/elf-requests';
 
 const storeName = 'links';
 
@@ -36,22 +26,26 @@ export interface Link {
 export class LinkRepository {
   links: Link[] = [];
   link: Observable<Link[]>;
-  private store;
-  private persist;
+  private _store;
+  private _persist;
 
   constructor(
-    private linkStateService: LinkStateService,
-    private location: Location
+    private _linkStateService: LinkStateService,
+    private _location: Location
   ) {
-    this.store = this.createStore();
-    this.link = this.store.pipe(selectAllEntities());
+    this._store = this.createStore();
+    this.link = this._store.pipe(selectAllEntities());
     this.fetchLinksFromServer();
-    this.persist = persistState(this.store, {
+    this._persist = persistState(this._store, {
       key: storeName,
       storage: localStorageStrategy,
     });
   }
 
+  /**
+   *
+   * @returns a store of Link idKey not necessary but makes sense
+   */
   private createStore(): typeof store {
     const store = createStore(
       { name: 'linkStore' },
@@ -60,54 +54,89 @@ export class LinkRepository {
     return store;
   }
 
+  /**
+   *
+   * @param newLink One Link const id / const url
+   */
   addLink(newLink: Link) {
-    this.store.update(addEntities(newLink));
-    this.linkStateService.addLinksFromServer(newLink).subscribe((link) => {
+    // adds locally
+    this._store.update(addEntities(newLink));
+    // adds on serv
+    this._linkStateService.addLinksToServer(newLink).subscribe((link) => {
       this.links.push(link);
       console.log(this.link);
     });
   }
 
-  getLinks() {
-    return this.store.pipe(selectAllEntities());
+  /**
+   *
+   * @returns selects all entities in elf's store
+   */
+  getLinksFromStore() {
+    return this._store.pipe(selectAllEntities());
   }
 
-  getLink(id: string) {
-    return this.store.pipe(selectEntity(id));
+  /**
+   *
+   * @param id
+   * @returns one entity from id
+   */
+  getLinkFromStore(id: string) {
+    return this._store.pipe(selectEntity(id));
   }
 
+  /**
+   * delete one entity from id
+   * @param id
+   */
   deleteLink(id: string) {
     // delete locally
-    this.store.update(deleteEntities(id));
+    this._store.update(deleteEntities(id));
     // delete onserver
-    this.linkStateService.deleteLinkFromServer(id).subscribe((link) => {
+    this._linkStateService.deleteLinkFromServer(id).subscribe((link) => {
       this.links.push(link);
     });
   }
 
+  /**
+   * Fetches all data from the get data (template via <T>) and retrives Links from it
+   */
   fetchLinksFromServer() {
-    this.linkStateService.getDataFromServer<Link>().subscribe((links) => {
+    this._linkStateService.getDataFromServer<Link>().subscribe((links) => {
       this.links = links;
-      this.store.update(setEntities(this.links));
+      // update local store
+      this._store.update(setEntities(this.links));
     });
   }
 
-  getLinksCount() {
-    return this.store.query(getEntitiesCount());
+  /**
+   * 
+   * @returns the number of entities in store (elf)
+   */
+  getLinksCountFromStore() {
+    return this._store.query(getEntitiesCount());
   }
 
-  updateLink(id: string, UpdatedLink: Link) {
+  /**Update locally (elf) & on server (calling the method stocked in service)
+   *
+   * @param id genérée par Guid dans le component Create
+   * @param updatedLink Objet complet
+   */
+  updateLink(id: string, updatedLink: Link) {
     // update onserver
-    this.linkStateService
-      .updateLinkOnServer(id, UpdatedLink)
+    this._linkStateService
+      .updateLinkOnServer(id, updatedLink)
       .subscribe((UpdatedLink) => (this.link = UpdatedLink));
-    console.log(UpdatedLink);
+    console.log(updatedLink);
     // update locally
-    this.store.update(updateEntities(id, { url: UpdatedLink.url }));
+    this._store.update(updateEntities(id, { url: updatedLink.url }));
     this.goBack();
   }
 
+  /**
+   * goes one step behind in history
+   */
   goBack(): void {
-    this.location.back();
+    this._location.back();
   }
 }

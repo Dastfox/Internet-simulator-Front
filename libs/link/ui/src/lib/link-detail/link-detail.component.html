@@ -5,8 +5,5 @@
     <label for="link-url">URL: <br>{{link.url}} </label><br>
     <input  placeholder="Modifier URL" name = URL #url />
   </div>
-  <!-- <button type="button" routerLink="/">go back</button> -->
-  <button type="button" (click)="UpdateLink(url.value); url.value=''">Save</button>
-
-
+  <button type="button" (click)="updateLink(url.value); url.value=''">Save</button>
 </div>

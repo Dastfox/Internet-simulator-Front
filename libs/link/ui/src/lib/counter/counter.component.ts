@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LinkRepository } from '@front-nx/link/state';
-import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
 import { Link } from '@front-nx/link/state';
 
 @Component({
@@ -8,20 +7,19 @@ import { Link } from '@front-nx/link/state';
   templateUrl: './counter.component.html',
   styleUrls: ['./counter.component.css'],
 })
-
-export class CounterComponent  {
+export class CounterComponent {
   links: Link[] = [];
   public counter;
 
-  constructor(    
-    private linkRepository: LinkRepository,
-    private linkStateService: LinkStateService) {
+  constructor(private _linkRepository: LinkRepository) {
     this.counter = this.getLinksCount();
-    }
-
-  
-  getLinksCount() { 
-    return this.linkRepository.getLinksCount()
-  };
   }
 
+  /**
+   * 
+   * @returns links count from repo method 
+   */
+  getLinksCount() {
+    return this._linkRepository.getLinksCountFromStore();
+  }
+}

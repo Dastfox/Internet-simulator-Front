@@ -37,7 +37,7 @@ export class LinkStateService {
     const url = `${this.linkUrl}details/${id}`;
     return this.http.delete<Link>(url, this.httpOptions);
   }
-  updateLinkOnServer(link: Link, id: string): Observable<any> {
-    return this.http.patch(`${this.linkUrl}details/${id}`, link, this.httpOptions);
+  updateLinkOnServer( id: string, UpdatedLink: Link): Observable<any> {
+    return this.http.patch(`${this.linkUrl}details/${id}`, UpdatedLink, this.httpOptions);
   }
 }

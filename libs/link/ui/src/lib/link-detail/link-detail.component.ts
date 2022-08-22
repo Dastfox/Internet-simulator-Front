@@ -32,14 +32,18 @@ export class LinkDetailComponent implements OnInit {
       console.log(this.link);
     });
   }
-  save(): void {
-    if (this.link) {
-      const id = String(this.route.snapshot.paramMap.get('id'));
-      this.linkRepository.updateLink(this.link, id);
-      this.goBack();
+  
+  UpdateLink(url: string): void {
+    url = url.trim();
+    const id = String(this.route.snapshot.paramMap.get('id'));
+    if (!url) {
+      return;
     }
+    const UpdatedLink: Link = {
+      url,
+      id,
+    };
+    this.linkRepository.updateLink(id, UpdatedLink);
   }
-  goBack(): void {
-    this.location.back();
-  }
+
 }

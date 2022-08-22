@@ -17,6 +17,7 @@ import {
 } from '@ngneat/elf-entities';
 import { Observable } from 'rxjs';
 import { LinkStateService } from 'libs/link/state/src/lib/link-state.service';
+import { Location } from '@angular/common';
 
 import {
   withRequestsStatus,
@@ -38,7 +39,10 @@ export class LinkRepository {
   private store;
   private persist;
 
-  constructor(private linkStateService: LinkStateService) {
+  constructor(
+    private linkStateService: LinkStateService,
+    private location: Location
+  ) {
     this.store = this.createStore();
     this.link = this.store.pipe(selectAllEntities());
     this.fetchLinksFromServer();
@@ -92,15 +96,18 @@ export class LinkRepository {
     return this.store.query(getEntitiesCount());
   }
 
-  updateLink(link: Link, id: string) {
+  updateLink(id: string, UpdatedLink: Link) {
     // update onserver
-    this.linkStateService.updateLinkOnServer(link, id).subscribe((link) => {
-      this.links.push(link);
-      console.log(link);
+    this.linkStateService
+      .updateLinkOnServer(id, UpdatedLink)
+      .subscribe((UpdatedLink) => (this.link = UpdatedLink));
+    console.log(UpdatedLink);
     // update locally
-    }
-    )
-    this.store.update(updateEntities(id, {url :link.url}));
-    console.log(link.url);
+    this.store.update(updateEntities(id, { url: UpdatedLink.url }));
+    this.goBack();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

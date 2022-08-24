@@ -13,7 +13,7 @@
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 </head>
 
-<body>
+<body class="colored">
   <links-root></links-root>
 </body>
 <script type="text/javascript">
@@ -22,7 +22,7 @@
     window.location.href = 'https://www.linkedin.com/in/th%C3%A9o-renard-353106102/';
   })
 </script>
-
+</html>
 <script type="text/javascript">
   var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
   bg_colour = "#" + ("000000" + bg_colour).slice(-6);
@@ -42,8 +42,8 @@
   var colour = invertColor(bg_colour);
 
   window.onload = function () {
+    document.body.style.color = colour;
+  };
 
-  }
 </script>
 
-</html>

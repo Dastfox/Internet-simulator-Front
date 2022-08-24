@@ -1,60 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { Link } from '@front-nx/link/state';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LinkRepository } from '@front-nx/link/state';
-import { Location } from '@angular/common';
+import { Link, LinkRepository } from '@front-nx/link/state';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'front-nx-link-detail',
   templateUrl: './link-detail.component.html',
   styleUrls: ['./link-detail.component.css'],
 })
-export class LinkDetailComponent implements OnInit {
+export class LinkDetailComponent {
   link: Link | undefined;
+  private _linkId?: string;
+  public get linkId() {
+    return this._linkId;
+  }
+  public set linkId(newLinkId) {
+    this._linkId = newLinkId;
+    if (!newLinkId) return;
+    this._linkRepository
+      .getLinkFromStore(newLinkId)
+      .pipe(
+        switchMap((link) => {
+          this.link = link;
+          return of(undefined);
+        })
+      )
+      .subscribe();
+  }
 
   constructor(
     private _route: ActivatedRoute,
-    private _linkRepository: LinkRepository,
-  ) {}
-
-  /**
-   * Gets a link on init
-   */
-  ngOnInit(): void {
-    this.getLink();
+    private _linkRepository: LinkRepository
+  ) {
+    this.linkId = this._route.snapshot.paramMap.get('id') ?? undefined;
   }
 
   /**
    * gets the id corresponding to the route
-   * gets the link from that id using the repo, suscribes it 
-   * logs the object  
+   * @param url  from html input, trims it
+   * @returns the repo method to add a link
    */
-  getLink(): void {
-    const id = String(this._route.snapshot.paramMap.get('id'));
-    this._linkRepository.getLinkFromStore(id).subscribe((link) => {
-      this.link = link;
-      console.log(this.link);
-    });
-  }
-
-/**
- * gets the id corresponding to the route
- * @param url  from html input, trims it
- * @returns the repo method to add a link
- */
   updateLink(url: string): void {
     url = url.trim();
-    const id = String(this._route.snapshot.paramMap.get('id'));
     // if link doesn't exists security
-    if (!url) {
+    if (!url || !this.linkId) {
       return;
     }
     // declares an object formed by trimmed url and id from route
     const UpdatedLink: Link = {
       url,
-      id,
+      id: this.linkId,
     };
-    this._linkRepository.updateLink(id, UpdatedLink);
+    this._linkRepository.updateLink(this.linkId, UpdatedLink);
   }
-
 }

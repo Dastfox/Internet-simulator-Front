@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
-
 @Component({
-  selector: "links-root",
+  selector: 'links-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+
+
+export class AppComponent{
   title = 'Internet Simulator';
-} 
+}

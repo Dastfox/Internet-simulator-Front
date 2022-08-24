@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@front-nx/images/pages": ["libs/images/pages/src/index.ts"],
+      "@front-nx/images/state": ["libs/images/state/src/index.ts"],
+      "@front-nx/images/ui": ["libs/images/ui/src/index.ts"],
       "@front-nx/link/pages": ["libs/link/pages/src/index.ts"],
       "@front-nx/link/state": ["libs/link/state/src/index.ts"],
       "@front-nx/link/ui": ["libs/link/ui/src/index.ts"]

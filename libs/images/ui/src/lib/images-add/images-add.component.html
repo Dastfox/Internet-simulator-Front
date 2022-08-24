@@ -1,0 +1,17 @@
+<!-- 
+<button class="upload-btn" (click)="file.click">
+</button>  -->
+<div> .png , .png , .gif , .bmp , .jpeg , jpg </div><br>
+
+<input type="file" id="file" 
+class="onFileChanged($event)"  #fileUpload>
+
+
+<button routerLink="/imagerand" class="button_new" (click)="addImage(fileUpload.files)" value="Upload">
+
+    <!-- <div class="form-group">
+        <label for="file">Choose File</label>
+        <input type="file"
+               id="file"
+               (change)="handleFileInput($event.target.files)">
+    </div> -->

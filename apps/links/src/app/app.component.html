@@ -1,8 +1,7 @@
-    <body>
+<body>
       
     <header>
-            <h3 id= "lab"> Internet Simulator: </h3>
-            <h2 id= "lab1"> Nombre de trucs sur internet:</h2>
+            <h3  routerLink="/home" id= "lab" class="ToStyle"> {{title}} </h3>
 
 
             
@@ -10,9 +9,13 @@
     class= 'about' 
     id="lab4">
   </button>
-<router-outlet></router-outlet>  
+
+<router-outlet></router-outlet>
+
     </header>
 
-    <p  class= "aboute" ><a href= "/about" id = "ks">Qu'est ce que c'est?</a></p>
+    <p  class= "aboute" ><a routerLink= "/about" id = "ks">Qu'est ce que c'est?</a></p>
+    <p  class= "aboute" ><a routerLink= "/images" id = "ks">Images</a></p>
 
-
+  </body>  
+    

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Link } from '@front-nx/link/state';
 
@@ -9,6 +9,7 @@ import { Link } from '@front-nx/link/state';
 @Injectable({ providedIn: 'root' })
 export class LinkStateService {
   private _linkUrl = 'http://localhost:8000/'; // URL to web api
+
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,7 +34,7 @@ export class LinkStateService {
    * gets all Data
    * @returns 
    */
-  getDataFromServer<T>(): Observable<T[]> {
+  getDataFromServer$<T>(): Observable<T[]> {
     return this._http.get<T[]>(this._linkUrl);
   }
 
@@ -42,7 +43,7 @@ export class LinkStateService {
    * @param link (id: str, url:str)
    * @returns a post method in the back
    */
-  addLinksToServer(link: Link): Observable<Link> {
+  addLinksToServer$(link: Link): Observable<Link> {
     return this._http.post<Link>(this._linkUrl, link, this.httpOptions);
   }
   /**
@@ -50,7 +51,7 @@ export class LinkStateService {
    * @param id 
    * @returns a delete method in the back 
    */
-  deleteLinkFromServer(id: string): Observable<Link> {
+  deleteLinkFromServer$(id: string): Observable<Link> {
     const url = `${this._linkUrl}details/${id}`;
     return this._http.delete<Link>(url, this.httpOptions);
   }
@@ -61,7 +62,11 @@ export class LinkStateService {
    * @param UpdatedLink object with new url
    * @returns a patch method in the back
    */
-  updateLinkOnServer( id: string, UpdatedLink: Link): Observable<any> {
+  updateLinkOnServer$( id: string, UpdatedLink: Link
+    // Partial<Link>
+    ): Observable<any> {
     return this._http.patch(`${this._linkUrl}details/${id}`, UpdatedLink, this.httpOptions);
   }
+
+
 }

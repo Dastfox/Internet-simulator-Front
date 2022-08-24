@@ -1,29 +1,32 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { LinkUiModule } from '@front-nx/link/ui';
-import { HomepageComponent } from './homepage/homepage.component';
-import { ListPageComponent } from './list-page/list-page.component';
-import { LinkDetailPagesComponent } from './link-detail-pages/link-detail-pages.component';
+import { LinkCreateComponent, LinkUiModule } from '@front-nx/link/ui';
+import { AppRoutingModule } from 'apps/links/src/app/app-routing.module';
 import { AboutPageComponent } from './about-page/about-page.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { LinkDetailPagesComponent } from './link-detail-pages/link-detail-pages.component';
+import { ListPageComponent } from './list-page/list-page.component';
 
-const routes: Routes = [
-  { path: 'home', component: HomepageComponent },
-  { path: 'about', component: AboutPageComponent},
-  { path: 'list', component: ListPageComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'details/:id', component: LinkDetailPagesComponent },
-  { path: '**', redirectTo: '/home' },
-];
+
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), BrowserModule, LinkUiModule],
+  imports: [
+    BrowserModule,
+    LinkUiModule,
+    LinkCreateComponent,
+    AppRoutingModule,
+  ],
   declarations: [
     HomepageComponent,
     ListPageComponent,
     LinkDetailPagesComponent,
     AboutPageComponent,
   ],
-  exports: [RouterModule],
+  exports: [
+    HomepageComponent,
+    ListPageComponent,
+    LinkDetailPagesComponent,
+    AboutPageComponent,
+  ],
 })
 export class LinkPagesModule {}

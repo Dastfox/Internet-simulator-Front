@@ -1,0 +1,14 @@
+.button_other {
+	transition: 1s;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	cursor: pointer;
+	align-self: center;
+	border-left: 1em solid;
+	border-bottom: 1em solid;
+	border-right: 1em solid;
+	border-top: 1em solid;
+	background: transparent;
+}
+

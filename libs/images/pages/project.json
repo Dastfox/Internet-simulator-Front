@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/images/pages/src",
+  "prefix": "front-nx",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/images/pages"],
+      "options": {
+        "jestConfig": "libs/images/pages/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/images/pages/**/*.ts",
+          "libs/images/pages/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

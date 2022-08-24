@@ -1,0 +1,10 @@
+img {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 15em;
+    border: none;
+}
+
+a{
+	cursor:pointer;
+}

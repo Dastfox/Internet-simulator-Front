@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LinkRepository } from '@front-nx/link/state';
 import { Link } from '@front-nx/link/state';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'front-nx-counter',
@@ -9,17 +10,15 @@ import { Link } from '@front-nx/link/state';
 })
 export class CounterComponent {
   links: Link[] = [];
-  public counter;
+  public counter$: Observable<number>;
+  public counter =  0;
 
   constructor(private _linkRepository: LinkRepository) {
-    this.counter = this.getLinksCount();
+    // methode 1: donnée manipulable
+    this._linkRepository.counter$.pipe(tap((counter) => {this.counter = counter})).subscribe(); 
+    // methode 2: donnée only 
+    this.counter$ = this._linkRepository.counter$;
   }
 
-  /**
-   * 
-   * @returns links count from repo method 
-   */
-  getLinksCount() {
-    return this._linkRepository.getLinksCountFromStore();
-  }
+
 }

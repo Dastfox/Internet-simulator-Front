@@ -1,4 +1,13 @@
+
 a {
     text-decoration: none;
-    color: black
+    font-family: 'Courier New', Courier, monospace, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
 }
+
+.delete{
+background: none;
+border: none;
+margin-left: 0;
+}
+

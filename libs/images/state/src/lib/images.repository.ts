@@ -67,24 +67,27 @@ export class ImagesRepository {
     return store;
   }
 
-  /**
+
+    /**
    *
    * @param newImage One Image const id / const name
    */
-  addImage(newFile: ImageFile, newImage : ImageData) {
-    console.log(newFile)
-    // adds locally
-    this._storeImages.update(addEntities(newImage));
-    // adds on serv
-    this._imageStateService
-      .addImageToServer$(newFile)
-      .pipe(
-        tap((newFile) => {
-          this.imageFiles.push(newFile);
-        })
-      )
-      .subscribe();
-  }
+     addImage(newFile: FormData) {
+      console.log(newFile)
+      // const newImage = (newFile.name, ) 
+      // adds locally
+      // this._storeImages.update(addEntities(newImage));
+      // adds on serv
+      this._imageStateService
+        .addImageToServer$(newFile)
+        .pipe(
+          tap((newFile) => {
+            this.imageFiles.push(newFile);
+          })
+        )
+        .subscribe();
+        this.goBack()
+    }
   /**
    *
    * @returns selects all entities in elf's store

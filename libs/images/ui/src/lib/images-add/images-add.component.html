@@ -1,13 +1,22 @@
 <!-- 
 <button class="upload-btn" (click)="file.click">
 </button>  -->
-<div> .png , .png , .gif , .bmp , .jpeg , jpg </div><br>
-
-<input type="file" id="file" 
-class="onFileChanged($event)"  #fileUpload>
+<div> Ajouter une image:</div>
+<div> .png , .png , .gif , .bmp , .jpeg , jpg </div>
 
 
-<button routerLink="/imagerand" class="button_new" (click)="addImage(fileUpload.files)" value="Upload">
+<input class = "input" type="file" id="file" 
+(change)="onFileSelected($event)"  #fileUpload>
+
+<div class="file-upload">
+
+
+    <button class = "button_new"
+     color="primary" (click)="fileUpload.click()">
+    </button>
+</div>
+
+<!-- <button routerLink="/imagerand" class="button_new"  value="Upload" (click)="addImage()"> -->
 
     <!-- <div class="form-group">
         <label for="file">Choose File</label>

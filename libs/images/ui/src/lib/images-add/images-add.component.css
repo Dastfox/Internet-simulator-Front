@@ -8,3 +8,12 @@
 	border: none;
 }
 
+.input{
+position: relative;
+    height: 100%;
+    width: auto;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+
+}

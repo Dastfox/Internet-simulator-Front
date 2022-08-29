@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-
 import { ImageData, ImageFile } from '@front-nx/images/state';
 
 @Injectable({ providedIn: 'root' })
@@ -46,13 +45,12 @@ export class ImagesStateService {
    * @param image (id: str, name:str)
    * @returns a post method in the back
    */
-  addImageToServer$(Item: ImageFile): Observable<ImageFile> {
-    const image_file = {id: Item.id,name : Item.name,file: Item.file}
-    console.log(image_file, Item)
-    return this._http.post<any>(
-      this._imageUrl,
-      image_file, this.httpOptions
-    );
+  addImageToServer$(formData: FormData): Observable<any> {;
+    const guidRandomID = Guid.create();
+    const id = guidRandomID.toString();
+    const imageWithId = {formData: formData, id: id}
+    console.log( imageWithId);
+    return this._http.post(this._imageUrl, formData);
   }
   /**
    *

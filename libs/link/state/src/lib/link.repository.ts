@@ -2,8 +2,14 @@ import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { createStore } from '@ngneat/elf';
 import {
-  addEntities, deleteEntities,
-  getEntitiesCount, selectAllEntities, selectEntity, setEntities, updateEntities, withEntities
+  addEntities,
+  deleteEntities,
+  getEntitiesCount,
+  selectAllEntities,
+  selectEntity,
+  setEntities,
+  updateEntities,
+  withEntities,
 } from '@ngneat/elf-entities';
 import { localStorageStrategy, persistState } from '@ngneat/elf-persist-state';
 import { LinkStateService } from './link-state.service';
@@ -30,7 +36,7 @@ export class LinkRepository {
   ) {
     this._store = this.createStore();
     this.links$ = this._store.pipe(selectAllEntities());
-    this.counter$ = this.links$.pipe(map((links)=> links.length))
+    this.counter$ = this.links$.pipe(map((links) => links.length));
     this.fetchLinksFromServer();
     this._persist = persistState(this._store, {
       key: storeName,
@@ -94,7 +100,7 @@ export class LinkRepository {
     // delete locally
     this._store.update(deleteEntities(id));
     // delete onserver
-    // const pushDelete$ = 
+    // const pushDelete$ =
     this._linkStateService.deleteLinkFromServer$(id).subscribe((link) => {
       this.links.push(link);
     });
@@ -105,11 +111,16 @@ export class LinkRepository {
    * Fetches all data from the get data (template via <T>) and retrives Links from it
    */
   fetchLinksFromServer() {
-    this._linkStateService.getDataFromServer$<Link>().subscribe((links) => {
-      this.links = links;
-      // update local store
-      this._store.update(setEntities(this.links));
-    });
+    this._linkStateService
+      .getDataFromServer$<Link>()
+      .pipe(
+        tap((links) => {
+          this.links = links;
+          // update local store
+          this._store.update(setEntities(this.links));
+        })
+      )
+      .subscribe();
   }
 
   /**
@@ -129,7 +140,8 @@ export class LinkRepository {
     // update onserver
     this._linkStateService
       .updateLinkOnServer$(id, updatedLink)
-      .subscribe((UpdatedLink) => (this.links$ = UpdatedLink));
+      .pipe(tap((UpdatedLink) => (this.links$ = UpdatedLink)))
+      .subscribe();
     console.log(updatedLink);
     // update locally
     this._store.update(updateEntities(id, { url: updatedLink.url }));

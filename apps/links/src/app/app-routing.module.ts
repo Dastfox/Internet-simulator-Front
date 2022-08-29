@@ -4,8 +4,8 @@ import { AboutPageComponent } from 'libs/link/pages/src/lib/about-page/about-pag
 import { HomepageComponent } from 'libs/link/pages/src/lib/homepage/homepage.component';
 import { LinkDetailPagesComponent } from 'libs/link/pages/src/lib/link-detail-pages/link-detail-pages.component';
 import { ListPageComponent } from 'libs/link/pages/src/lib/list-page/list-page.component';
-import {ImagesRandomPageComponent} from '@front-nx/images/pages';
-import {ImagesAddPageComponent} from '@front-nx/images/pages'
+import { ImagesRandomPageComponent } from '@front-nx/images/pages';
+import { ImagesAddPageComponent } from '@front-nx/images/pages';
 
 const routes: Routes = [
   { path: 'home', component: HomepageComponent },
@@ -13,13 +13,13 @@ const routes: Routes = [
   { path: 'list', component: ListPageComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'details/:id', component: LinkDetailPagesComponent },
-  { path: 'images', component: ImagesRandomPageComponent},
-  { path: 'imagesadd', component: ImagesAddPageComponent},
+  { path: 'images', component: ImagesRandomPageComponent },
+  { path: 'imagesadd', component: ImagesAddPageComponent },
   { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ onSameUrlNavigation: 'reload' })],
 
   exports: [RouterModule],
 })

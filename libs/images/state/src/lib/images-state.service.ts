@@ -35,8 +35,8 @@ export class ImagesStateService {
     return this._http.get<T[]>(this._imageUrl);
   }
 
-  getRandomImageFromServer(): Observable<Blob> {
-    const url = `${this._imageUrl}/rand/`;
+  getImagebyIdFromServer(id: string): Observable<Blob> {
+    const url = `${this._imageUrl}/${id}/`;
     return this._http.get(url, { responseType: 'blob' });
   }
 
